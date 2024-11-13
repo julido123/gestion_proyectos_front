@@ -1,0 +1,65 @@
+<form [formGroup]="ideaForm" (ngSubmit)="getIdeas()" class="filter-container">
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Sede</mat-label>
+      <mat-select formControlName="sede">
+        <mat-option *ngFor="let sede of sedes" [value]="sede.nombre">
+          {{ sede.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Área</mat-label>
+      <mat-select formControlName="area">
+        <mat-option *ngFor="let area of areas" [value]="area.nombre">
+          {{ area.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Filtrar</button>
+  </form>
+  
+  <!-- Tabla de Ideas -->
+  <table mat-table [dataSource]="ideas" class="mat-elevation-z8 ideas-table">
+    <!-- Columnas de la tabla -->
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef> Título </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.titulo }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripción </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.descripcion }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="usuario">
+      <th mat-header-cell *matHeaderCellDef> Usuario </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.usuario }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef> Tipo </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.tipo }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="sede">
+      <th mat-header-cell *matHeaderCellDef> Sede </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.sede }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="area">
+      <th mat-header-cell *matHeaderCellDef> Área </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.area }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let idea"> {{ idea.estado }} </td>
+    </ng-container>
+  
+    <!-- Encabezado y filas de la tabla -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

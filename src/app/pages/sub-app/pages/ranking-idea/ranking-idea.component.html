@@ -1,0 +1,40 @@
+<div class="ranking-container">
+    <h2 class="text-center my-4">Ranking de Usuarios con Ideas</h2>
+    
+    <mat-table [dataSource]="rankings" class="ranking-table mat-elevation-z8">
+      <!-- Posición Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> Posición </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          <span [class.top-ranking]="i < 3">{{ i + 1 }}</span>
+        </mat-cell>
+      </ng-container>
+  
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.username }} </mat-cell>
+      </ng-container>
+  
+      <!-- Total Ideas Column -->
+      <ng-container matColumnDef="total_ideas">
+        <mat-header-cell *matHeaderCellDef> Total de Ideas </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.total_ideas }} </mat-cell>
+      </ng-container>
+  
+      <!-- Promedio Calificación Column -->
+      <ng-container matColumnDef="promedio_calificacion">
+        <mat-header-cell *matHeaderCellDef> Promedio de Calificación </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <span [class.high-score]="element.promedio_calificacion >= 4.0">
+            {{ element.promedio_calificacion | number:'1.1-1' }}
+          </span>
+        </mat-cell>
+      </ng-container>
+  
+      <!-- Table Header and Row Definitions -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  

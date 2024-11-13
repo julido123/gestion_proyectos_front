@@ -1,0 +1,17 @@
+.sidenav-container {
+height: 100vh;
+}
+
+.sidenav {
+width: 250px; // Ancho expandido del sidebar
+transition: width 0.3s;
+}
+
+.sidenav.collapsed {
+width: 70px; // Ancho del sidebar cuando está colapsado
+}
+
+.main-content {
+padding-top: 64px; // Deja espacio para el header fijo
+padding: 16px;
+}

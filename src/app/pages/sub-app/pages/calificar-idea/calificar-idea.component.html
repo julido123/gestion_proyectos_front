@@ -1,0 +1,52 @@
+<div *ngIf="ideasSinCalificar.length > 0">
+    <h3>Ideas sin calificar</h3>
+    <ul>
+      <li *ngFor="let idea of ideasSinCalificar">
+        <button mat-raised-button color="primary" (click)="seleccionarIdea(idea)">
+          {{ selectedIdea?.id === idea.id ? 'Cerrar Calificación' : 'Calificar' }}
+        </button>
+        {{ idea.titulo }}
+  
+        <!-- Panel de calificación de la idea seleccionada -->
+        <mat-expansion-panel *ngIf="selectedIdea?.id === idea.id" expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Calificar idea: {{ selectedIdea?.titulo ?? 'No hay tit'}}</mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <form (ngSubmit)="calificar()">
+            <mat-form-field>
+              <label>Factibilidad:</label>
+              <input matInput type="number" [(ngModel)]="calificacion.factibilidad" name="factibilidad" required min="1" max="10">
+            </mat-form-field>
+  
+            <mat-form-field>
+              <label>Viabilidad:</label>
+              <input matInput type="number" [(ngModel)]="calificacion.viabilidad" name="viabilidad" required min="1" max="10">
+            </mat-form-field>
+  
+            <mat-form-field>
+              <label>Impacto:</label>
+              <input matInput type="number" [(ngModel)]="calificacion.impacto" name="impacto" required min="1" max="10">
+            </mat-form-field>
+  
+            <mat-form-field>
+              <label>Puntuación General:</label>
+              <input matInput type="number" [(ngModel)]="calificacion.puntuacion_general" name="puntuacion_general" required min="1" max="10">
+            </mat-form-field>
+  
+            <mat-form-field>
+              <label>Comentario:</label>
+              <textarea matInput [(ngModel)]="calificacion.comentario" name="comentario"></textarea>
+            </mat-form-field>
+  
+            <button mat-raised-button color="accent" type="submit">Enviar Calificación</button>
+          </form>
+        </mat-expansion-panel>
+      </li>
+    </ul>
+  </div>
+  
+  <div *ngIf="ideasSinCalificar.length === 0">
+    <p>No hay ideas sin calificar.</p>
+  </div>
+  
