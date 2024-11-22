@@ -36,14 +36,17 @@ export class CalificarIdeaComponent implements OnInit {
   obtenerIdeasSinCalificar() {
     this.ideaService.getIdeasSinCalificar().subscribe((ideas: any[]) => {
       this.ideasSinCalificar = ideas;
+  
       if (ideas.length > 0) {
-        // Obtén las columnas dinámicamente de las claves del primer objeto
-        this.displayedColumns = Object.keys(ideas[0]).filter(
-          (key) => key !== 'acciones' // Excluir claves si es necesario
+        const columnasBase = Object.keys(ideas[0]).filter(
+          (key) => key !== 'acciones'
         );
-        // Agrega la columna de acciones
-        this.displayedColumns.push('acciones');
+  
+        // Agregar manualmente 'archivos' y 'acciones' al final
+        this.displayedColumns = [...columnasBase, 'acciones'];
       }
+  
+      console.log('Displayed Columns:', this.displayedColumns); // Verifica las columnas finales
     });
   }
 
@@ -88,6 +91,27 @@ export class CalificarIdeaComponent implements OnInit {
           confirmButtonText: 'Intentar de nuevo'
         });
       }
+    });
+  }
+
+  verArchivos(archivos: any[]): void {
+    if (!archivos || archivos.length === 0) {
+      Swal.fire({
+        title: 'Sin archivos',
+        text: 'No hay archivos asociados a esta idea.',
+        icon: 'info',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+  
+    // Mostrar rutas en un SweetAlert o consola para pruebas
+    const archivoRutas = archivos.map((a) => a.archivo_url).join('\n');
+    Swal.fire({
+      title: 'Archivos Asociados',
+      text: archivoRutas,
+      icon: 'info',
+      confirmButtonText: 'Cerrar'
     });
   }
 }

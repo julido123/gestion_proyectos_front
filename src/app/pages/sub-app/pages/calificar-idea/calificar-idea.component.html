@@ -11,13 +11,27 @@
         </th>
         <td mat-cell *matCellDef="let element" class="mat-cell">
           <!-- Manejo especial para la columna de acciones -->
-          <ng-container *ngIf="column === 'acciones'; else defaultCell">
+          <ng-container *ngIf="column === 'acciones'; else archivoCell">
             <button
               mat-raised-button
               color="primary"
               (click)="seleccionarIdea(element)">Calificar
             </button>
           </ng-container>
+
+          <!-- Manejo especial para la columna de archivos -->
+          <ng-template #archivoCell>
+            <ng-container *ngIf="column === 'archivos'; else defaultCell">
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="verArchivos(element[column])">
+                Ver Archivos
+              </button>
+            </ng-container>
+          </ng-template>
+
+          <!-- Manejo por defecto para otras columnas -->
           <ng-template #defaultCell>
             {{ element[column] }}
           </ng-template>
