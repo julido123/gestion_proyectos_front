@@ -1,26 +1,81 @@
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-    background-color: #cfcfcf;
-    height: 64px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: #ffffff; /* Degradado azul profesional */
+  height: 70px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25); /* Sombra más definida */
+  color: #ffffff; /* Texto en blanco para contraste */
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  //border-radius: 5px;
+}
+
+.highlight {
+  color: #ff9800; /* Naranja vibrante */
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 5.3); /* Sombra para mejor contraste */
 }
 
 .menu-toggle-button {
-    padding: 0;
-    margin-right: 16px;
+  color: #3f51b5; 
+  margin-right: 16px;
+  transition: color 0.3s ease, background 0.3s ease;
 }
 
-.user-controls {
-    display: flex;
-    gap: 10px;
+.menu-toggle-button:hover {
+  background: rgba(255, 255, 255, 0.2); /* Efecto hover sutil */
+  color: #5c6bc0; /* Un blanco más suave */
 }
 
 h1 {
-    // padding-left: 16px;
-    font-size: 30px;
-    margin: auto
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  color: #5c6bc0; /* Título en blanco */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Efecto de sombra suave */
+}
+
+.user-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.profile-button {
+  background-color: #3f51b5; /* Azul profesional */
+  color: #ffffff !important; /* Texto en blanco */
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+  background-color: #5c6bc0; /* Azul más oscuro en hover */
+}
+
+.logout-button {
+  background-color: #ff9800; /* Rojo claro */
+  color: #ffffff !important; /* Texto en blanco */
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #d32f2f; /* Rojo más intenso en hover */
+}
+
+.header-container button[mat-icon-button] {
+  background: rgba(255, 255, 255, 0.1); /* Fondo sutil */
+  border-radius: 50%;
+  padding: 8px;
+  transition: background 0.3s ease;
+}
+
+.header-container button[mat-icon-button]:hover {
+  background: rgba(255, 255, 255, 0.2); /* Hover con más visibilidad */
 }

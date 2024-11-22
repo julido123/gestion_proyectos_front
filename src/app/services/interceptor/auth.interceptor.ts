@@ -10,7 +10,6 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const storedUser = localStorage.getItem('currentUser_Creativos');
     const currentUser = storedUser ? JSON.parse(storedUser) : null;
-    console.log('AuthInterceptor - currentUser:', currentUser);
   
     if (currentUser && currentUser.token) {
       request = request.clone({

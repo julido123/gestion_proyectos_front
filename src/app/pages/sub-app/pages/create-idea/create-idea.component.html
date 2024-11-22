@@ -3,20 +3,23 @@
 
   <form [formGroup]="ideaForm">
     <!-- Título -->
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Título</mat-label>
+      <mat-icon matPrefix>edit</mat-icon>
       <input matInput formControlName="titulo" placeholder="Ingrese el título de la idea" />
     </mat-form-field>
 
     <!-- Descripción -->
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Descripción</mat-label>
+      <mat-icon matPrefix>description</mat-icon>
       <textarea matInput formControlName="descripcion" placeholder="Describa la idea" rows="5"></textarea>
     </mat-form-field>
 
     <!-- Tipo -->
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Tipo de Idea</mat-label>
+      <mat-icon matPrefix>category</mat-icon>
       <mat-select formControlName="tipo">
         <mat-option value="problema">Problema</mat-option>
         <mat-option value="oportunidad">Oportunidad</mat-option>
@@ -25,8 +28,9 @@
     </mat-form-field>
 
     <!-- Sede -->
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Sede</mat-label>
+      <mat-icon matPrefix>location_on</mat-icon>
       <mat-select formControlName="sede">
         <mat-option *ngFor="let sede of sedes" [value]="sede.nombre">
           {{ sede.nombre }}
@@ -35,8 +39,9 @@
     </mat-form-field>
 
     <!-- Área -->
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Area</mat-label>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Área</mat-label>
+      <mat-icon matPrefix>apartment</mat-icon>
       <mat-select formControlName="area">
         <mat-option *ngFor="let area of areas" [value]="area.nombre">
           {{ area.nombre }}
@@ -44,9 +49,28 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- Adjuntos -->
+    <div class="file-upload-container">
+      <label for="file-upload" class="file-upload-label">
+        <mat-icon>attach_file</mat-icon> Adjuntar Archivos
+      </label>
+      <input id="file-upload" type="file" (change)="onFileSelected($event)" class="file-upload-input"
+        accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv" multiple [max]="5" />
+      <!-- Lista los archivos seleccionados -->
+      <div *ngFor="let file of selectedFiles; let i = index">
+        <span>{{ file.name }}</span>
+        <button mat-icon-button (click)="removeFile(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+
+
     <!-- Botón de enviar -->
     <div class="button-container">
-      <button mat-raised-button color="primary" (click)="onSubmit()">Crear Idea</button>
+      <button mat-raised-button color="accent" class="submit-button" [disabled]="ideaForm.invalid"
+        (click)="onSubmit()">Crear Idea</button>
     </div>
   </form>
 </div>

@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Calificar idea: {{ data.titulo }}</h2>
+<mat-dialog-content>
+  <form (ngSubmit)="calificar()">
+    <mat-form-field appearance="fill">
+      <mat-label>Factibilidad</mat-label>
+      <input matInput type="number" [(ngModel)]="calificacion.factibilidad" name="factibilidad" required min="0" max="10" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Viabilidad</mat-label>
+      <input matInput type="number" [(ngModel)]="calificacion.viabilidad" name="viabilidad" required min="0" max="10" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Impacto</mat-label>
+      <input matInput type="number" [(ngModel)]="calificacion.impacto" name="impacto" required min="0" max="10" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Puntuación General</mat-label>
+      <input matInput type="number" [(ngModel)]="calificacion.puntuacion_general" name="puntuacion_general" required min="0" max="10" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comentario</mat-label>
+      <textarea matInput [(ngModel)]="calificacion.comentario" name="comentario"></textarea>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" type="submit">Enviar</button>
+      <button mat-button mat-dialog-close>Cerrar</button>
+    </div>
+  </form>
+</mat-dialog-content>

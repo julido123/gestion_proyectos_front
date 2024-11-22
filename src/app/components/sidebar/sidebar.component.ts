@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class SidebarComponent {
 
   @Input() isExpanded = true;
+  @Output() closeSidebar = new EventEmitter<void>();
 
   menuItems = [
     { icon: 'home', label: 'Inicio', route: '/static/welcome' },
@@ -19,9 +20,10 @@ export class SidebarComponent {
     { icon: 'insights', label: 'Estadísticas', route: '/app/estadisticas' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   navigate(route: string) {
     this.router.navigate([route]);
+    this.closeSidebar.emit();
   }
 }

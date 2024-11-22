@@ -1,1 +1,67 @@
-<p>estadisticas works!</p>
+<div class="dashboard-container">
+  <!-- Tarjetas -->
+  <div class="card">
+    <h3>Total de Ideas</h3>
+    <p class="card-value">{{ ideasPorTipo?.total }}</p>
+  </div>
+  <div class="card">
+    <h3>Oportunidades</h3>
+    <p class="card-value">{{ ideasPorTipo?.por_tipo?.oportunidad }}</p>
+  </div>
+  <div class="card">
+    <h3>Problemas</h3>
+    <p class="card-value">{{ ideasPorTipo?.por_tipo?.problema }}</p>
+  </div>
+  <div class="card">
+    <h3>Retos</h3>
+    <p class="card-value">{{ ideasPorTipo?.por_tipo?.reto }}</p>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="card">
+    <h3>Distribución de Ideas</h3>
+    <canvas baseChart [data]="chartDataPorTipo" [labels]="chartLabelsPorTipo" [type]="'doughnut'"></canvas>
+  </div>
+  <div class="card">
+    <h3>Ideas por Área</h3>
+    <canvas baseChart [data]="chartDataPorArea" [labels]="chartLabelsPorArea" [type]="'bar'"></canvas>
+  </div>
+  <div class="card">
+    <h3>Ideas por Sede</h3>
+    <canvas baseChart [data]="chartDataPorSede" [labels]="chartLabelsPorSede" [type]="'bar'"></canvas>
+  </div>
+
+  <!-- Tabla -->
+  <div class="card table-card">
+    <h3>Detalle de Encuestas por Sede</h3>
+    <table mat-table [dataSource]="detalleEncuestasPorSede" class="mat-elevation-z8">
+      <!-- Columnas de la tabla -->
+      <ng-container matColumnDef="sede">
+        <th mat-header-cell *matHeaderCellDef>Sede</th>
+        <td mat-cell *matCellDef="let detalle">{{ detalle.sede__nombre }}</td>
+      </ng-container>
+      <ng-container matColumnDef="totalIdeas">
+        <th mat-header-cell *matHeaderCellDef>Total Ideas</th>
+        <td mat-cell *matCellDef="let detalle">{{ detalle.total_ideas }}</td>
+      </ng-container>
+      <ng-container matColumnDef="problemas">
+        <th mat-header-cell *matHeaderCellDef>Problemas</th>
+        <td mat-cell *matCellDef="let detalle">{{ detalle.problemas }}</td>
+      </ng-container>
+      <ng-container matColumnDef="oportunidades">
+        <th mat-header-cell *matHeaderCellDef>Oportunidades</th>
+        <td mat-cell *matCellDef="let detalle">{{ detalle.oportunidades }}</td>
+      </ng-container>
+      <ng-container matColumnDef="retos">
+        <th mat-header-cell *matHeaderCellDef>Retos</th>
+        <td mat-cell *matCellDef="let detalle">{{ detalle.retos }}</td>
+      </ng-container>
+      <ng-container matColumnDef="promedioCalificacion">
+        <th mat-header-cell *matHeaderCellDef>Promedio Calificación</th>
+        <td mat-cell *matCellDef="let detalle">{{ detalle.promedio_calificacion }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

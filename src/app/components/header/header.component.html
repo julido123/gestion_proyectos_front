@@ -1,12 +1,12 @@
-<div class="header-container">
-    <button mat-icon-button (click)="toggleSidebar.emit()" class="menu-toggle-button">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1><b>Ideas Creativas</b></h1>
-    
-    <div class="user-controls">
-      <button mat-button>Perfil</button>
-      <button mat-button color="warn" (click)="logout()">Cerrar Sesión</button>
-    </div>
-  </div>
+<div class="header-container" *ngIf="isAuthenticated">
+  <button mat-icon-button (click)="toggleSidebar.emit()" class="menu-toggle-button">
+    <mat-icon>menu</mat-icon>
+  </button>
   
+  <h1><b>Creativos <span class="highlight">+</span></b></h1>
+  
+  <div class="user-controls">
+    <button mat-button class="profile-button">Perfil</button>
+    <button mat-button (click)="logout()" class="logout-button">Cerrar Sesión</button>
+  </div>
+</div>

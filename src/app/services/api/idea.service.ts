@@ -25,7 +25,7 @@ export class IdeaService {
     return this.http.get(`${this.apiUrl}listar-ideas/`, { params });
   }
 
-  createIdea(ideaData: any): Observable<any> {
+  createIdea(ideaData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}crear-idea/`, ideaData);
   }
 
@@ -63,5 +63,13 @@ export class IdeaService {
 
   getDetalleEncuestasPorSede(): Observable<DetalleEncuestaPorSede[]> {
     return this.http.get<DetalleEncuestaPorSede[]>(`${this.apiUrl}detalle-encuestas-por-sede/`);
+  }
+
+  updateIdeaEstado(id: number, estado: string) {
+    return this.http.patch(`${this.apiUrl}ideas/${id}/estado/`, { estado });
+  }
+
+  updateCalificacion(id: number, calificacion: any) {
+    return this.http.patch(`${this.apiUrl}calificaciones/${id}/`, calificacion);
   }
 }

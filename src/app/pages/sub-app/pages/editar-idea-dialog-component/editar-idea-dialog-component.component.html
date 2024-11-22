@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Editar Idea: {{ data.titulo }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="ideaForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado">
+        <mat-option value="pendiente">Pendiente</mat-option>
+        <mat-option value="en_progreso">En progreso</mat-option>
+        <mat-option value="completada">Completado</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    
+
+    <mat-form-field appearance="fill">
+      <mat-label>Factibilidad</mat-label>
+      <input matInput type="number" formControlName="factibilidad" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Viabilidad</mat-label>
+      <input matInput type="number" formControlName="viabilidad" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Impacto</mat-label>
+      <input matInput type="number" formControlName="impacto" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Puntuación General</mat-label>
+      <input matInput type="number" formControlName="puntuacion_general" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comentario</mat-label>
+      <textarea matInput formControlName="comentario"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+</mat-dialog-actions>

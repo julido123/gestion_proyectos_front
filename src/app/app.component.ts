@@ -11,4 +11,8 @@ export class AppComponent {
   toggleSidebar() {
     this.isSidebarExpanded = !this.isSidebarExpanded;
   }
+
+  closeSidebar() {
+    this.isSidebarExpanded = false; // Cierra el sidebar
+  }
 }

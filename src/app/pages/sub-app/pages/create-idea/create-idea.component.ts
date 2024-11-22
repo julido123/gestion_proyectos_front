@@ -15,10 +15,12 @@ export class CreateIdeaComponent implements OnInit {
   sedes: Sede[] = [];
   areas: Area[] = [];
 
-  constructor(private fb: FormBuilder, private ideaService: IdeaService) {}
+  selectedFiles : File[] = [];
+
+  constructor(private fb: FormBuilder, private ideaService: IdeaService) { }
 
   ngOnInit(): void {
-    
+
     this.ideaForm = this.fb.group({
       titulo: ['', [Validators.required, Validators.maxLength(200)]],
       descripcion: ['', Validators.required],
@@ -32,42 +34,102 @@ export class CreateIdeaComponent implements OnInit {
 
   onSubmit(): void {
     if (this.ideaForm.valid) {
-      console.log(this.ideaForm.value);
-      this.ideaService.createIdea(this.ideaForm.value).subscribe({
-        next: response => {  
-          // Mostrar mensaje de éxito con SweetAlert2
+      const formData = new FormData();
+  
+      // Agregar datos del formulario al FormData
+      Object.keys(this.ideaForm.value).forEach(key => {
+        formData.append(key, this.ideaForm.value[key]);
+      });
+  
+      // Agregar todos los archivos seleccionados al FormData
+      this.selectedFiles.forEach(file => {
+        formData.append('archivos[]', file); // Cambiar a `archivos[]` si el backend lo requiere
+      });
+
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+      //console.log(formData); // Mostrar campos y valores (archivos serán objetos Blob)
+      
+  
+      this.ideaService.createIdea(formData).subscribe({
+        next: response => {
           Swal.fire({
             title: '¡Éxito!',
             text: 'La idea ha sido creada exitosamente.',
             icon: 'success',
-            confirmButtonText: 'Aceptar'
-          });  
+            confirmButtonText: 'Aceptar',
+          });
           this.ideaForm.reset();
+          this.selectedFiles = []; // Restablecer los archivos seleccionados
         },
-        error: error => {   
-          // Mostrar mensaje de error con SweetAlert2
+        error: error => {
           Swal.fire({
             title: 'Error',
             text: 'Hubo un problema al crear la idea. Por favor, intenta nuevamente.',
             icon: 'error',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
           });
-        }
+        },
       });
     } else {
-      this.ideaForm.markAllAsTouched();
+      this.ideaForm.reset();
     }
+  }
+
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput?.files) {
+      const files = Array.from(fileInput.files);
+      const maxFiles = 5;
+      const maxFileSizeMB = 5;
+      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
+      const allowedTypes = [
+        'image/jpeg', 'image/png', 'image/gif',
+        'application/pdf', 'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/plain', 'text/csv'
+      ];
+  
+      if (files.length > maxFiles) {
+        Swal.fire('Demasiados archivos', `Solo puedes subir hasta ${maxFiles} archivos.`, 'error');
+        return;
+      }
+  
+      // Filtrar archivos inválidos
+      const invalidFiles = files.filter(file => {
+        return !allowedTypes.includes(file.type) || file.size > maxFileSizeBytes;
+      });
+  
+      if (invalidFiles.length > 0) {
+        Swal.fire({
+          title: 'Archivos inválidos',
+          text: `Algunos archivos no cumplen las restricciones. Por favor verifica los formatos y tamaños.`,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
+        return;
+      }
+  
+      this.selectedFiles = files; // Guardar solo los archivos válidos
+    }
+  }
+
+  removeFile(index: number): void {
+    this.selectedFiles.splice(index, 1);
   }
 
 
   getSede(): void {
-    this.ideaService.getSede().subscribe(data =>{
+    this.ideaService.getSede().subscribe(data => {
       this.sedes = data;
     });
   }
 
   getArea(): void {
-    this.ideaService.getArea().subscribe(data =>{
+    this.ideaService.getArea().subscribe(data => {
       this.areas = data;
     });
   }

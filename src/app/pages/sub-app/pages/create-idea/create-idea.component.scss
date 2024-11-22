@@ -1,19 +1,90 @@
 .idea-create-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+  max-width: 600px;
+  margin: 1% auto;
+  padding: 30px;
+  background: linear-gradient(to bottom right, #ffffff, #f7f7f7);
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.idea-create-container h2 {
+  text-align: center;
+  color: #5a6ee0;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.mat-form-field {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.mat-form-field.mat-focused {
+  background: #ffffff;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start,
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-color: #5a6ee0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-color: #5a6ee0;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.submit-button {
+  padding: 12px 36px;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+
+.file-upload-container {
   
-  .full-width {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  
-  .button-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-upload-label {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.file-upload-label mat-icon {
+  margin-right: 8px;
+}
+
+.file-upload-input {
+  display: none; /* Oculta el input nativo */
+}
+
+.file-upload-container span {
+  font-size: 0.875rem;
+  color: #666;
+}

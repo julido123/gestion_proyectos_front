@@ -7,13 +7,11 @@
     class="sidenav"
     [ngClass]="{'collapsed': !isSidebarExpanded}"
   >
-    <app-sidebar [isExpanded]="isSidebarExpanded"></app-sidebar>
+    <app-sidebar [isExpanded]="isSidebarExpanded" (closeSidebar)="closeSidebar()"></app-sidebar>
   </mat-sidenav>
 
   <!-- Contenido Principal -->
   <mat-sidenav-content class="main-content">
-    <!-- Header con botón de toggle -->
-    <!-- <app-header (toggleSidenav)="sidenav.toggle()"></app-header> -->
     <app-header (toggleSidebar)="toggleSidebar()"></app-header>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

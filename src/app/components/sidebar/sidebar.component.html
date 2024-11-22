@@ -1,4 +1,6 @@
-<div class="menu-item" *ngFor="let item of menuItems" (click)="navigate(item.route)">
-    <mat-icon>{{ item.icon }}</mat-icon>
-    <span *ngIf="isExpanded">{{ item.label }}</span>
+<div class="sidebar-container">
+    <div class="menu-item" *ngFor="let item of menuItems" (click)="navigate(item.route)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span *ngIf="isExpanded">{{ item.label }}</span>
+    </div>
 </div>

@@ -3,16 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { ListIdeasRoutingModule } from './list-ideas-routing.module';
 import { ListIdeasComponent } from './list-ideas.component';
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatCommonModule } from '@angular/material/core';
+import { EditarIdeaDialogComponentComponent } from '../editar-idea-dialog-component/editar-idea-dialog-component.component';
+import { MatDialogModule} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ListIdeasComponent],
+  declarations: [ListIdeasComponent,
+    EditarIdeaDialogComponentComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -22,6 +27,9 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatInputModule,
     MatTableModule,
+    MatCommonModule,
+    MatDialogModule,
+    FormsModule
   ]
 })
 export class ListIdeasModule { }

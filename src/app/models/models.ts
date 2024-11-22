@@ -17,6 +17,9 @@ export interface Idea {
     sede: string;
     area: string;
     estado: string;
+    fecha_creacion: string;
+    archivos?: File[]; 
+    calificaciones?: Calificacion[];
 }
 
 export interface Calificacion {

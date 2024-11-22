@@ -1,0 +1,29 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta dinámicamente el número de columnas */
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 100%;
+}
+
+.table-card {
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.table-card table {
+  width: 100%;
+  border-spacing: 0;
+}

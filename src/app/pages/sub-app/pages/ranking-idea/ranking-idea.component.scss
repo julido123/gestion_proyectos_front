@@ -1,44 +1,47 @@
 .ranking-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-  
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #3f51b5;
-    }
-    
-    .ranking-table {
-      width: 100%;
-      border-radius: 8px;
-      background-color: #fff;
-      
-      mat-header-cell {
-        font-weight: bold;
-        text-align: center;
-        color: #3f51b5;
-        font-size: 1rem;
-      }
-  
-      mat-cell {
-        text-align: center;
-        font-size: 0.95rem;
-        padding: 0.75rem;
-      }
-  
-      .top-ranking {
-        font-weight: bold;
-        font-size: 1.2rem;
-        color: #ff9800;
-      }
-  
-      .high-score {
-        font-weight: bold;
-        color: #4caf50;
-      }
-    }
-  }
-  
+  max-width: 800px;
+  margin: auto;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  min-height: 100vh;
+}
+
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #3f51b5;
+}
+
+.ranking-table {
+  width: 100%;
+  border-radius: 8px;
+  background-color: #fff;
+
+}
+
+mat-header-cell {
+  font-weight: bold;
+  text-align: center;
+  color: #3f51b5;
+  font-size: 1rem;
+}
+
+mat-cell {
+  text-align: center;
+  font-size: 0.95rem;
+  padding: 0.75rem;
+}
+
+.top-ranking {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ff9800;
+}
+
+.high-score {
+  font-weight: bold;
+  color: #4caf50;
+}
