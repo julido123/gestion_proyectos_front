@@ -1,19 +1,19 @@
+.page-container {
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start; 
+  min-height: calc(100vh - 90px);
+  background-color: #f0f0f5; 
+}
+
 .idea-create-container {
   max-width: 600px;
-  margin: 1% auto;
+  margin-top: 20; /* Asegura que no haya espacio adicional */
   padding: 30px;
   background: linear-gradient(to bottom right, #ffffff, #f7f7f7);
   border-radius: 16px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: left;
-}
-
-.idea-create-container h2 {
-  text-align: center;
-  color: #5a6ee0;
-  font-weight: bold;
-  margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif;
 }
 
 .full-width {
@@ -87,4 +87,40 @@
 .file-upload-container span {
   font-size: 0.875rem;
   color: #666;
+}
+
+
+h1 {
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+.underlined {
+/*   background: red; */
+  position: relative;
+}
+.underline-overflow {
+  display: inline-block;
+  /* A little extra padding and overflow hidden   */
+  overflow: hidden;
+  padding-bottom: clamp(1rem, 2vmin, 2rem);
+}
+
+.underline-clip:after {
+  content: '';
+  position: absolute;
+  top: 95%;
+  width: 150%;
+  aspect-ratio: 3 / 1;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 50%;
+  border: 4px solid #2f56e3;
+  /* Use a clip-path to hide and show the bits you want */
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
 }

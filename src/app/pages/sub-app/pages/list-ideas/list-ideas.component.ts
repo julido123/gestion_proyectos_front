@@ -5,6 +5,9 @@ import { Sede, Area, Idea } from '../../../../models/models';
 import { EditarIdeaDialogComponentComponent } from '../editar-idea-dialog-component/editar-idea-dialog-component.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { ImageCarouselDialogComponent } from '../image-carousel-dialog/image-carousel-dialog.component';
+import { FileService } from '../../../../services/shared/file.service';
+
 
 @Component({
   selector: 'app-list-ideas',
@@ -17,16 +20,17 @@ export class ListIdeasComponent implements OnInit {
   areas: Area[] = [];
   ideas: Idea[] = [];
   tableColumns: string[] = [
-    'fecha_creacion', 'usuario', 'titulo', 'descripcion', 'sede', 'area', 
-    'estado', 'factibilidad', 'viabilidad', 'impacto', 'puntuacion_general', 'comentario', 'acciones'
+    'fecha_creacion', 'usuario', 'titulo', 'descripcion', 'sede', 'area',
+    'estado', 'puntuacion_general', 'comentario', 'archivos', 'acciones'
   ];
 
-  constructor(private fb: FormBuilder, private ideaService: IdeaService, private dialog: MatDialog) {}
+  constructor(private fb: FormBuilder, private ideaService: IdeaService, private dialog: MatDialog, private fileService: FileService) { }
 
   ngOnInit(): void {
     this.ideaForm = this.fb.group({
       sede: [''],
-      area: ['']
+      area: [''],
+      usuario: ['']
     });
 
     this.getSede();
@@ -63,13 +67,12 @@ export class ListIdeasComponent implements OnInit {
       width: '400px',
       data: idea // Pasar la idea seleccionada al diálogo
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         // Extraer estado y calificación del resultado del diálogo
         const { estado, calificacion } = result;
-  
+
         // Llamar al método para actualizar estado y calificación
         this.actualizarIdea(idea, estado, calificacion);
       }
@@ -79,7 +82,7 @@ export class ListIdeasComponent implements OnInit {
   actualizarIdea(idea: any, estado: string, calificacion: any): void {
     const ideaId = idea.id;
     const calificacionId = idea.calificaciones[0]?.id; // Obtener el ID de la primera calificación asociada
-  
+
     if (!calificacionId) {
       Swal.fire({
         title: 'Error',
@@ -90,7 +93,7 @@ export class ListIdeasComponent implements OnInit {
       return;
     }
 
-  
+
     // Actualizar el estado de la idea
     this.ideaService.updateIdeaEstado(ideaId, estado).subscribe({
       next: () => {
@@ -128,4 +131,25 @@ export class ListIdeasComponent implements OnInit {
     });
   }
 
+  async verArchivos(archivos: any[]): Promise<void> {
+    if (!archivos || archivos.length === 0) {
+      await Swal.fire({
+        title: 'Sin archivos',
+        text: 'No hay archivos asociados a esta idea.',
+        icon: 'info',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
+
+    const { images: imagenes, otherFiles: otrosArchivos } = this.fileService.procesarArchivos(
+      archivos,
+      (url) => this.ideaService.getArchivoUrl(url)
+    );
+
+    this.dialog.open(ImageCarouselDialogComponent, {
+      width: '600px',
+      data: { images: imagenes, otherFiles: otrosArchivos },
+    });
+  }
 }

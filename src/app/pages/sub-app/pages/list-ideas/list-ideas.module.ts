@@ -13,6 +13,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { EditarIdeaDialogComponentComponent } from '../editar-idea-dialog-component/editar-idea-dialog-component.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ListIdeasComponent,
@@ -29,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatCommonModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatIconModule
   ]
 })
 export class ListIdeasModule { }

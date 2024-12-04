@@ -6,7 +6,6 @@ import { SubAppRoutingModule } from './sub-app-routing.module';
 
 @NgModule({
   declarations: [
-  
     
   ],
   imports: [

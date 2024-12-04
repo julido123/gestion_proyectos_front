@@ -1,30 +1,35 @@
-<div class="login-container" [ngStyle]="{'background-image': 'url(https://vivirenelpoblado.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-04-at-2.39.34-PM.jpg)'}">
-  <div class="login-card">
-    <h2>PLATAFORMA</h2>
-    <h2><span class="creative">Creativos +</span></h2>
+<div class="login-container">
+  <!-- <video autoplay muted loop class="background-video">
+    <source src="videj.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video> -->
+  <div class="login-card-split">
+    <div class="login-left">
+      <h2>PLATAFORMA</h2>
+      <h1><b>Creativos <span class="highlight">+</span></b></h1>
 
-    <form (ngSubmit)="onSubmit()" class="login-form">
-      <mat-form-field appearance="fill">
-        <mat-label>Nombre de Usuario</mat-label>
-        <input matInput type="text" [(ngModel)]="username" name="username" required>
-      </mat-form-field>
+      <form (ngSubmit)="onSubmit()" class="login-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de Usuario</mat-label>
+          <input matInput type="text" [(ngModel)]="username" name="username" required />
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Contraseña</mat-label>
-        <input matInput type="password" [(ngModel)]="password" name="password" required>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" [(ngModel)]="password" name="password" required class="password"/>
+        </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">Ingresar</button>
-    </form>
+        <button mat-raised-button type="submit">Ingresar</button>
+      </form>
 
-    <p *ngIf="error" class="error-message">{{ error }}</p>
-  </div>
-  <div class="welcome-section">
-    <div class="welcome-logo">
-      <!-- Agrega aquí el logo o imagen -->
-      <mat-icon>agriculture</mat-icon>
+      <p *ngIf="error" class="error-message">{{ error }}</p>
     </div>
-    <h2>¡Bienvenido!</h2>
-    <p>Ingresa y comparte tus ideas creativas con nosotros</p>
+    <div class="login-right">
+      <div class="welcome-logo">
+        <img src="selta.png" alt="Logo Selta" class="login-logo" />
+      </div>
+      <h2>¡Bienvenido!</h2>
+      <p>Ingresa y comparte tus ideas creativas con nosotros</p>
+    </div>
   </div>
 </div>

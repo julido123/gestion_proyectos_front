@@ -3,6 +3,9 @@ import { IdeaService } from '../../../../services/api/idea.service';
 import { IdeasPorTipo, IdeasPorArea, IdeasPorSede, DetalleEncuestaPorSede } from '../../../../models/models';;
 import { ChartData, ChartOptions, ChartType  } from 'chart.js'; 
 import { BaseChartDirective } from 'ng2-charts';
+// import { Chart } from 'chart.js';
+// import ChartDataLabels from 'chartjs-plugin-datalabels';
+// Chart.register(ChartDataLabels);
 
 @Component({
   selector: 'app-estadisticas',
@@ -16,6 +19,7 @@ export class EstadisticasComponent implements OnInit {
   detalleEncuestasPorSede: DetalleEncuestaPorSede[] = [];
 
   // Chart data and labels
+  
   chartDataPorTipo: ChartData<'doughnut'> = { datasets: [] };
   chartLabelsPorTipo: string[] = [];
   chartDataPorArea: ChartData<'bar'> = { datasets: [] };
@@ -32,12 +36,31 @@ export class EstadisticasComponent implements OnInit {
     this.obtenerDetalleEncuestasPorSede();
   }
 
+  chartOptionsPorTipo: ChartOptions<'doughnut'> = {
+    responsive: true,
+    aspectRatio: 1, // Mantiene el gráfico cuadrado
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          font: {
+            size: 14
+          },
+          color: '#000'
+        }
+      }
+    },
+    cutout: '50%', // Reduce el tamaño interno del donut
+  };
+
   obtenerIdeasPorTipo(): void {
     this.ideaService.getIdeasPorTipo().subscribe((data) => {
       this.ideasPorTipo = data;
 
       this.chartLabelsPorTipo = ['Oportunidad', 'Problema', 'Reto'];
       this.chartDataPorTipo = {
+        labels: this.chartLabelsPorTipo,
         datasets: [{
           data: [
             data.por_tipo.oportunidad || 0,
@@ -49,6 +72,7 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
+
 
   obtenerIdeasPorArea(): void {
     this.ideaService.getIdeasPorArea().subscribe((data) => {

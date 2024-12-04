@@ -1,53 +1,20 @@
 <div class="container">
   <div class="row">
-    <!-- Tarjeta 1 -->
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="card card-crear-ideas">
-        <div class="card-icon material-icons">add_circle_outline</div>
-        <h3>Crear Ideas</h3>
-        <p>Crear una nueva idea</p>
-        <button class="btn blue-btn" routerLink="/app/crear">Ir a crear</button>
+    <!-- Tarjeta dinámica -->
+    <ng-container *ngFor="let card of cards">
+      <div 
+        class="col-12 col-md-6 col-lg-4 mb-4" 
+        *ngIf="canAccessCard(card)"
+      >
+        <div class="card" [ngClass]="card.cardClass">
+          <div class="card-icon material-icons">{{ card.icon }}</div>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.description }}</p>
+          <button class="btn" [ngClass]="card.btnClass" [routerLink]="card.route">
+            {{ card.buttonText }}
+          </button>
+        </div>
       </div>
-    </div>
-
-    <!-- Tarjeta 2 -->
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="card card-ver-ideas">
-        <div class="card-icon material-icons">lightbulb_outline</div>
-        <h3>Ver Ideas +</h3>
-        <p>Explorar ideas existentes</p>
-        <button class="btn gray-btn" routerLink="/app/ideas">Ver ideas</button>
-      </div>
-    </div>
-
-    <!-- Tarjeta 3 -->
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="card card-calificar-ideas">
-        <div class="card-icon material-icons">star_outline</div>
-        <h3>Calificar Ideas +</h3>
-        <p>Evaluar ideas existentes</p>
-        <button class="btn orange-btn" routerLink="/app/calificar">Calificar</button>
-      </div>
-    </div>
-
-    <!-- Tarjeta 4 -->
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="card card-ver-ranking">
-        <div class="card-icon material-icons">emoji_events</div>
-        <h3>Ver Ranking</h3>
-        <p>Explorar el ranking de ideas</p>
-        <button class="btn green-btn" routerLink="/app/ranking">Ver ranking</button>
-      </div>
-    </div>
-
-    <!-- Tarjeta 5 -->
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="card card-ver-estadisticas">
-        <div class="card-icon material-icons">insights</div>
-        <h3>Ver Estadísticas</h3>
-        <p>Analizar datos de ideas</p>
-        <button class="btn light-gray-btn" routerLink="/app/estadisticas">Ver estadísticas</button>
-      </div>
-    </div>
+    </ng-container>
   </div>
 </div>

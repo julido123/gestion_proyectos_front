@@ -1,0 +1,30 @@
+<div class="carousel-container">
+    <!-- Carrusel de imágenes -->
+    <div *ngIf="images.length > 0" class="carousel">
+      <div class="carousel-controls">
+        <button *ngIf="images.length > 1" (click)="prev()" class="prev-btn">&lt;</button>
+        <button *ngIf="images.length > 1" (click)="next()" class="next-btn">&gt;</button>
+      </div>
+      <img [src]="images[currentIndex]" alt="Imagen {{ currentIndex + 1 }}" />
+      <a [href]="images[currentIndex]" download="image_{{ currentIndex + 1 }}" class="download-btn-image">
+        Descargar Imagen
+      </a>
+    </div>
+  
+    <!-- Lista de otros archivos -->
+    <div class="otros-archivos" *ngIf="otherFiles.length > 0">
+      <h3>Archivos adjuntos</h3>
+      <div class="archivo-lista">
+        <div class="archivo-item" *ngFor="let archivo of otherFiles">
+          <div class="archivo-nombre" [title]="archivo.nombre">
+            {{ archivo.nombre.length > 20 ? (archivo.nombre | slice: 0:20) + '...' : archivo.nombre }}
+          </div>
+          <a [href]="archivo.url" target="_blank" class="archivo-descargar">Descargar Archivo</a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mensaje cuando no hay archivos -->
+    <p *ngIf="images.length === 0 && otherFiles.length === 0">No hay archivos para mostrar.</p>
+  </div>
+  

@@ -1,0 +1,27 @@
+<div class="page-container">
+<div class="profile-container">
+    <div class="profile-header">
+        <h1 class="user-name">{{ user.nombre }} {{ user.apellido }}</h1>
+      <p class="user-role">{{ user.user_type }}</p>
+    </div>
+    <div class="profile-details">
+      <div class="detail-item">
+        <mat-icon class="icon">person</mat-icon>
+        <p><strong>Nombre de usuario:</strong> {{ user.nombre_usuario }}</p>
+      </div>
+      <div class="detail-item">
+        <mat-icon class="icon">credit_card</mat-icon>
+        <p><strong>Cédula:</strong> {{ user.cedula }}</p>
+      </div>
+      <div class="detail-item">
+        <mat-icon class="icon">emoji_objects</mat-icon>
+        <p><strong>Cantidad de ideas:</strong> {{ user.cantidad_ideas }}</p>
+      </div>
+      <div class="detail-item">
+        <mat-icon class="icon">grade</mat-icon>
+        <p><strong>Promedio de calificación:</strong> {{ user.promedio_calificacion }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+  

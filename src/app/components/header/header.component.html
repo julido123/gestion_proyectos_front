@@ -6,7 +6,7 @@
   <h1><b>Creativos <span class="highlight">+</span></b></h1>
   
   <div class="user-controls">
-    <button mat-button class="profile-button">Perfil</button>
+    <button mat-button (click)="navigate('/app/perfil')" class="profile-button">Perfil</button>
     <button mat-button (click)="logout()" class="logout-button">Cerrar Sesión</button>
   </div>
 </div>

@@ -81,7 +81,7 @@ export class CreateIdeaComponent implements OnInit {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput?.files) {
       const files = Array.from(fileInput.files);
-      const maxFiles = 5;
+      const maxFiles = 3;
       const maxFileSizeMB = 5;
       const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
       const allowedTypes = [

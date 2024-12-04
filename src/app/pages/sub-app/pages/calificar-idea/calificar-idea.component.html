@@ -1,50 +1,90 @@
-<div *ngIf="ideasSinCalificar.length > 0" class="ideas-container">
-  <h3 class="ideas-title">Ideas sin calificar</h3>
+<div class="page-container">
+  <div *ngIf="ideasSinCalificar.length > 0" class="ideas-container">
+    <h1>Califica una <span class="underlined underline-clip">Idea</span></h1>
 
-  <!-- Tabla con información de las ideas -->
-  <div class="table-container">
-    <table mat-table [dataSource]="ideasSinCalificar" class="mat-elevation-z8 ideas-table">
-      <!-- Generar columnas dinámicamente -->
-      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-        <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
-          {{ column | titlecase }}
-        </th>
-        <td mat-cell *matCellDef="let element" class="mat-cell">
-          <!-- Manejo especial para la columna de acciones -->
-          <ng-container *ngIf="column === 'acciones'; else archivoCell">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="seleccionarIdea(element)">Calificar
-            </button>
-          </ng-container>
+  <!-- Enlazar el formGroup -->
+  <form [formGroup]="ideaForm" class="filters-form">
+    <!-- Contenedor de filtros y botones -->
+    <div class="filters-container">
+      <!-- Filtros -->
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Buscar por Usuario</mat-label>
+        <input matInput formControlName="usuario" placeholder="Ej: Juan Duque" />
+      </mat-form-field>
 
-          <!-- Manejo especial para la columna de archivos -->
-          <ng-template #archivoCell>
-            <ng-container *ngIf="column === 'archivos'; else defaultCell">
-              <button
-                mat-raised-button
-                color="accent"
-                (click)="verArchivos(element[column])">
-                Ver Archivos
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Sede</mat-label>
+        <mat-select formControlName="sede">
+          <mat-option *ngFor="let sede of sedes" [value]="sede.nombre">
+            {{ sede.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="filter-field">
+        <mat-label>Área</mat-label>
+        <mat-select formControlName="area">
+          <mat-option *ngFor="let area of areas" [value]="area.nombre">
+            {{ area.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Botones -->
+      <div class="filter-buttons">
+        <button mat-raised-button color="primary" (click)="obtenerIdeasSinCalificar()">Filtrar</button>
+        <button mat-raised-button color="warn" (click)="clearFilters()">Limpiar filtros</button>
+      </div>
+    </div>
+  </form>
+
+
+    <!-- Tabla con información de las ideas -->
+    <div class="table-container">
+      <table mat-table [dataSource]="ideasSinCalificar" class="mat-elevation-z8 ideas-table">
+        <!-- Generar columnas dinámicamente -->
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef class="mat-header-cell">
+            {{ column | titlecase }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-cell">
+            <!-- Condicional para la columna de acciones -->
+            <ng-container *ngIf="column === 'acciones'; else conditionalColumns">
+              <button mat-raised-button (click)="seleccionarIdea(element)">
+                Calificar
               </button>
             </ng-container>
-          </ng-template>
 
-          <!-- Manejo por defecto para otras columnas -->
-          <ng-template #defaultCell>
-            {{ element[column] }}
-          </ng-template>
-        </td>
-      </ng-container>
+            <!-- Manejo especial para columnas con lógica condicional -->
+            <ng-template #conditionalColumns>
+              <ng-container *ngIf="column === 'archivos'; else defaultCell">
+                <ng-container *ngIf="element[column]?.length > 0; else noArchivos">
+                  <button mat-raised-button color="accent" (click)="verArchivos(element[column])">
+                    <mat-icon>remove_red_eye</mat-icon>Ver
+                  </button>
+                </ng-container>
+                <ng-template #noArchivos>
+                  <span>x</span>
+                </ng-template>
+              </ng-container>
+            </ng-template>
 
-      <!-- Encabezados y filas -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></tr>
-    </table>
+            <!-- Celda por defecto para otras columnas -->
+            <ng-template #defaultCell>
+              {{ element[column] || '-' }}
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Encabezados y filas -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></tr>
+      </table>
+    </div>
   </div>
-</div>
 
-<div *ngIf="ideasSinCalificar.length === 0" class="no-ideas">
-  <p>No hay ideas sin calificar.</p>
+  <div *ngIf="ideasSinCalificar.length === 0" class="no-ideas">
+    <p>No hay ideas sin calificar.</p>
+  </div>
+
 </div>

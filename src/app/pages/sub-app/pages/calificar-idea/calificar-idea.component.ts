@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { IdeaService } from '../../../../services/api/idea.service';
-import { Calificacion, Idea } from '../../../../models/models';
+import { Sede, Area, Idea } from '../../../../models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { CalificacionDialogComponent } from '../calificacion-dialog/calificacion-dialog.component';
 import Swal from 'sweetalert2';
+import { ImageCarouselDialogComponent } from '../image-carousel-dialog/image-carousel-dialog.component';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { FileService } from '../../../../services/shared/file.service';
 
 
 @Component({
@@ -15,6 +19,9 @@ export class CalificarIdeaComponent implements OnInit {
   ideasSinCalificar: Idea[] = [];
   selectedIdea: Idea | null = null;
   displayedColumns: string[] = [];
+  sedes: Sede[] = [];
+  areas: Area[] = [];
+  ideaForm!: FormGroup;
   calificacion = {
     idea: 0,
     factibilidad: 0,
@@ -26,27 +33,64 @@ export class CalificarIdeaComponent implements OnInit {
 
   constructor(
     private ideaService: IdeaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private fileService: FileService
   ) { }
 
   ngOnInit(): void {
+    this.ideaForm = this.fb.group({
+      sede: [''],
+      area: [''],
+      usuario: ['']
+    });
+  
+    this.getSede();
+    this.getArea();
     this.obtenerIdeasSinCalificar();
   }
 
   obtenerIdeasSinCalificar() {
-    this.ideaService.getIdeasSinCalificar().subscribe((ideas: any[]) => {
-      this.ideasSinCalificar = ideas;
+    const filters = this.ideaForm.value;
+    console.log('Filtros aplicados:', filters);
   
-      if (ideas.length > 0) {
-        const columnasBase = Object.keys(ideas[0]).filter(
-          (key) => key !== 'acciones'
-        );
+    this.ideaService.getIdeasSinCalificar(filters).subscribe(
+      (ideas: any[]) => {
+        console.log('Respuesta del servidor:', ideas);
+        this.ideasSinCalificar = ideas;
   
-        // Agregar manualmente 'archivos' y 'acciones' al final
-        this.displayedColumns = [...columnasBase, 'acciones'];
+        if (ideas.length > 0) {
+          const columnasBase = Object.keys(ideas[0]).filter(
+            (key) => key !== 'acciones' && key !== 'id'
+          );
+          this.displayedColumns = [...columnasBase, 'acciones'];
+        }
+      },
+      (error) => {
+        console.error('Error al obtener ideas sin calificar:', error);
       }
+    );
+  }
   
-      console.log('Displayed Columns:', this.displayedColumns); // Verifica las columnas finales
+  clearFilters(): void {
+    this.ideaForm.reset({
+      sede: '',
+      area: '',
+      usuario: ''
+    });
+    this.obtenerIdeasSinCalificar();
+  }
+
+  getSede(): void {
+    this.ideaService.getSede().subscribe(data => {
+      this.sedes = data;
+    });
+  }
+
+  getArea(): void {
+    this.ideaService.getArea().subscribe(data => {
+      this.areas = data;
     });
   }
 
@@ -94,24 +138,25 @@ export class CalificarIdeaComponent implements OnInit {
     });
   }
 
-  verArchivos(archivos: any[]): void {
+  async verArchivos(archivos: any[]): Promise<void> {
     if (!archivos || archivos.length === 0) {
-      Swal.fire({
+      await Swal.fire({
         title: 'Sin archivos',
         text: 'No hay archivos asociados a esta idea.',
         icon: 'info',
-        confirmButtonText: 'Aceptar'
+        confirmButtonText: 'Aceptar',
       });
       return;
     }
   
-    // Mostrar rutas en un SweetAlert o consola para pruebas
-    const archivoRutas = archivos.map((a) => a.archivo_url).join('\n');
-    Swal.fire({
-      title: 'Archivos Asociados',
-      text: archivoRutas,
-      icon: 'info',
-      confirmButtonText: 'Cerrar'
+    const { images: imagenes, otherFiles: otrosArchivos } = this.fileService.procesarArchivos(
+      archivos,
+      (url) => this.ideaService.getArchivoUrl(url)
+    );
+  
+    this.dialog.open(ImageCarouselDialogComponent, {
+      width: '600px',
+      data: { images: imagenes, otherFiles: otrosArchivos },
     });
   }
 }

@@ -16,11 +16,15 @@ import { CalificarIdeaComponent } from './calificar-idea.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CalificacionDialogComponent } from '../calificacion-dialog/calificacion-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ImageCarouselDialogComponent } from '../image-carousel-dialog/image-carousel-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
   declarations: [CalificarIdeaComponent,
-    CalificacionDialogComponent
+    CalificacionDialogComponent,
+    ImageCarouselDialogComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,10 @@ import { CalificacionDialogComponent } from '../calificacion-dialog/calificacion
     MatInputModule,
     MatFormFieldModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatSelectModule
+    
   ]
 })
 export class CalificarIdeaModule { }

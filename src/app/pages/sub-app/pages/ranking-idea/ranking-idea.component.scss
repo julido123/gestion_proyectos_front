@@ -1,47 +1,165 @@
+:root {
+  --primary-color: #5a6ee0;
+  --accent-color: #ff9800;
+  --success-color: #4caf50;
+  --background-light: #f7f7f7;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+}
+
 .ranking-container {
   max-width: 800px;
   margin: auto;
-  padding: 1.5rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  padding: 30px;
+  background: linear-gradient(to bottom right, #ffffff, var(--background-light));
+  border-radius: 16px;
+  box-shadow: 0 8px 16px var(--shadow-light);
   text-align: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 90px);
 }
 
+.ranking-container h2 {
+  color: #5a6ee0;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
 
-h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #3f51b5;
+/* Contenedor de contenido */
+.ranking-content {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
+}
+
+.period-selector {
+  margin-bottom: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.ranking-table-container {
+  margin-top: 16px;
+  overflow-x: auto; /* Permite desplazamiento horizontal si la tabla no cabe */
 }
 
 .ranking-table {
+  min-width: 600px; /* Asegura que la tabla no se colapse demasiado */
   width: 100%;
   border-radius: 8px;
-  background-color: #fff;
-
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 mat-header-cell {
   font-weight: bold;
   text-align: center;
-  color: #3f51b5;
   font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
 }
 
 mat-cell {
   text-align: center;
   font-size: 0.95rem;
-  padding: 0.75rem;
+  padding: 12px;
 }
 
 .top-ranking {
   font-weight: bold;
   font-size: 1.2rem;
-  color: #ff9800;
+  color: var(--accent-color);
 }
 
 .high-score {
   font-weight: bold;
-  color: #4caf50;
+  color: var(--success-color);
+}
+
+.mat-form-field {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-color: #5a6ee0;
+}
+
+mat-header-row {
+  background-color: #3f51b5;
+}
+
+mat-cell {
+  align-items: center;
+}
+
+mat-header-cell,
+mat-cell {
+  white-space: nowrap; /* Evita que el contenido se rompa en varias líneas */
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 8px;
+}
+
+h1 {
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.underlined {
+/*   background: red; */
+  position: relative;
+}
+.underline-overflow {
+  display: inline-block;
+  /* A little extra padding and overflow hidden   */
+  overflow: hidden;
+  padding-bottom: clamp(1rem, 2vmin, 2rem);
+}
+
+.underline-clip:after {
+  content: '';
+  position: absolute;
+  top: 95%;
+  width: 150%;
+  aspect-ratio: 3 / 1;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 50%;
+  border: 4px solid #2f56e3;
+  /* Use a clip-path to hide and show the bits you want */
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+}
+
+/* Ajustes específicos para dispositivos más pequeños */
+@media (max-width: 768px) {
+  .ranking-container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  mat-header-cell,
+  mat-cell {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .ranking-table-container {
+    margin-top: 12px;
+  }
+
+  .mat-form-field {
+    font-size: 0.9rem;
+  }
 }

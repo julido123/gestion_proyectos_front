@@ -6,9 +6,15 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.page-container{
+  min-height: calc(100vh - 90px);
+}
+
 .ideas-title {
-  font-size: 24px;
+  color: #5a6ee0;
   font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -24,13 +30,14 @@
 .ideas-table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 8px;
+  border-radius: 10px;
+  overflow: hidden;
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .mat-header-row {
-  background-color: #3f51b5;
+  background-color: #1F3A93;
   color: #fff;
   font-weight: bold;
 }
@@ -64,4 +71,80 @@ button {
 .no-ideas {
   text-align: center;
   font-size: 18px;
+}
+
+h1 {
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.underlined {
+/*   background: red; */
+  position: relative;
+}
+.underline-overflow {
+  display: inline-block;
+  /* A little extra padding and overflow hidden   */
+  overflow: hidden;
+  padding-bottom: clamp(1rem, 2vmin, 2rem);
+}
+
+.underline-clip:after {
+  content: '';
+  position: absolute;
+  top: 95%;
+  width: 150%;
+  aspect-ratio: 3 / 1;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 50%;
+  border: 4px solid #2f56e3;
+  /* Use a clip-path to hide and show the bits you want */
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+}
+
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espacio entre filas */
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;    /* Centrar verticalmente */
+  gap: 16px;              /* Espacio entre los elementos */
+  margin: auto;           /* Centrar el contenedor en el eje principal */
+  max-width: 100%;        /* Evitar que se desborde */
+}
+
+.filter-field {
+  flex: 1 1 calc(100% - 32px); /* Ocupa toda la fila en pantallas pequeñas */
+  max-width: 250px;           /* Límite en pantallas grandes */
+  min-width: 150px;           /* Ancho mínimo para evitar colapsos */
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrar los botones */
+  gap: 8px;               /* Espaciado entre botones */
+  margin-top: 16px;       /* Espacio adicional con los filtros */
+}
+
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column; /* Cambiar a disposición vertical */
+    gap: 12px;             /* Reducir espacio en pantallas pequeñas */
+  }
+
+  .filter-field, .filter-buttons {
+    width: 100%;          /* Ocupan todo el ancho disponible */
+    max-width: none;
+  }
 }

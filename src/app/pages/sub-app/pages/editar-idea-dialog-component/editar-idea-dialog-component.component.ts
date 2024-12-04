@@ -23,14 +23,27 @@ export class EditarIdeaDialogComponentComponent {
     public dialogRef: MatDialogRef<EditarIdeaDialogComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    const estadoTransformado = this.transformarEstado(data.estado);
+  
     this.ideaForm = this.fb.group({
-      estado: [data.estado || ''], // Valor inicial para el estado
+      estado: [estadoTransformado], // Usar el valor transformado
       puntuacion_general: [data.calificaciones[0]?.puntuacion_general || null],
       factibilidad: [data.calificaciones[0]?.factibilidad || null],
       viabilidad: [data.calificaciones[0]?.viabilidad || null],
       impacto: [data.calificaciones[0]?.impacto || null],
       comentario: [data.calificaciones[0]?.comentario || ''],
     });
+  }
+  
+  transformarEstado(estado: string): string {
+    const mapping: { [key: string]: string } = {
+      Pendiente: 'pendiente',
+      Aprobada: 'aprobada',
+      'En Progreso': 'en_progreso',
+      Completada: 'completada',
+    };
+  
+    return mapping[estado] || estado; // Devuelve el valor transformado o el original si no está en el mapping
   }
 
   guardar(): void {

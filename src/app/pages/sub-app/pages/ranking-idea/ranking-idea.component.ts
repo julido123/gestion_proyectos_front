@@ -10,11 +10,16 @@ import {UserRanking } from '../../../../models/models';
 export class RankingIdeaComponent implements OnInit {
   rankings: UserRanking[] = [];
   displayedColumns: string[] = ['position', 'username', 'total_ideas', 'promedio_calificacion'];
+  selectedPeriod: string = 'all'; // Período seleccionado por defecto
 
   constructor(private ideaService: IdeaService) {}
 
   ngOnInit(): void {
-    this.ideaService.getUserRanking().subscribe(
+    this.loadRankings(); 
+  }
+
+  loadRankings(): void {
+    this.ideaService.getUserRanking(this.selectedPeriod).subscribe(
       (data) => {
         this.rankings = data;
       },
@@ -22,5 +27,10 @@ export class RankingIdeaComponent implements OnInit {
         console.error('Error loading rankings:', error);
       }
     );
+  }
+
+  onPeriodChange(period: string): void {
+    this.selectedPeriod = period;
+    this.loadRankings(); // Recargar rankings cuando se cambia el período
   }
 }

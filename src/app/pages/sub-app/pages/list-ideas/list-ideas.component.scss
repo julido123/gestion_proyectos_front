@@ -1,133 +1,121 @@
-.filter-container {
-  display: flex;
-  flex-direction: row; /* Alinea los elementos en fila */
-  align-items: center; /* Centra verticalmente los elementos */
-  justify-content: center; /* Centra horizontalmente todo el contenido */
-  margin-bottom: 20px;
-  background-color: #f9f9f9;
+/* General Styles */
+.page-container {
+  min-height: calc(100vh - 90px);
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  gap: 20px; /* Espaciado entre filtros y botones */
+  box-sizing: border-box;
 }
 
-.filter-fields, .filter-buttons {
-  display: flex;
-  flex-direction: row; /* Alinea los elementos dentro de estos contenedores en fila */
-  align-items: center; /* Centra verticalmente los elementos */
-  gap: 10px; /* Espaciado entre filtros o botones */
-}
-
-.ideas-title {
-  font-size: 32px;
+h1 {
+  font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 10px;
   text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.underlined {
+  position: relative;
+}
+
+.underline-clip:after {
+  content: '';
+  position: absolute;
+  top: 95%;
+  width: 150%;
+  aspect-ratio: 3 / 1;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 50%;
+  border: 4px solid #2f56e3;
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
 }
 
 
-.filter-field {
-  min-width: 200px;
+/* Table Section */
+.table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .ideas-table {
   width: 100%;
-  margin: 10px;
+  border-collapse: collapse;
+  overflow: hidden;
   border-radius: 8px;
-  background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-
 }
 
 .mat-header-row {
-  background-color: #3f51b5 !important;
-  color: #fff;
-  font-weight: bold;
+  background-color: #3f51b5;
+  color: white;
 }
 
 .mat-header-cell, .mat-cell {
-  padding: 10px 20px;
+  padding: 10px 15px;
   text-align: center;
-
-}
-
-.mat-cell {
-  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.9rem;
 }
 
 .mat-row:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.highlight-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
 }
 
 button {
   padding: 8px 16px;
   border-radius: 4px;
 }
-
-.table-container {
-  overflow-x: auto; /* Permite el desplazamiento horizontal */
-  margin: 0 auto;   /* Centra la tabla */
-  padding: 1rem;    /* Espaciado interno */
-  max-width: 100%;  /* No excede el ancho de la pantalla */
-  box-sizing: border-box;
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espacio entre filas */
 }
 
-.ideas-table {
-  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
-  border-collapse: collapse; /* Mejora el diseño de las celdas */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;    /* Centrar verticalmente */
+  gap: 16px;              /* Espacio entre los elementos */
+  margin: auto;           /* Centrar el contenedor en el eje principal */
+  max-width: 100%;        /* Evitar que se desborde */
 }
 
-.ideas-table tr {
-  transition: background-color 0.3s ease;
+.filter-field {
+  flex: 1 1 calc(100% - 32px); /* Ocupa toda la fila en pantallas pequeñas */
+  max-width: 250px;           /* Límite en pantallas grandes */
+  min-width: 150px;           /* Ancho mínimo para evitar colapsos */
 }
 
-
-.ideas-table tr:hover {
-  background-color: rgba(0, 0, 0, 0.08); /* Fondo más notorio */
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrar los botones */
+  gap: 8px;               /* Espaciado entre botones */
+  margin-top: 16px;       /* Espacio adicional con los filtros */
 }
 
-.ideas-table .mat-header-row {
-  background-color: #1976d2; /* Azul Material Design */
-  color: white; /* Texto blanco para contraste */
-  font-weight: bold; /* Hace el texto más visible */
-}
-
-.ideas-table .mat-header-cell {
-  color: white; /* Texto blanco */
-  text-align: center; /* Centra el texto en las celdas */
-  padding: 8px; /* Espaciado interno para legibilidad */
-}
-
-
-.ideas-table .mat-header-row {
-  border-bottom: 2px solid #0d47a1; /* Azul más oscuro */
-}
-
-.ideas-table tr:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-
-
-@media (max-width: 600px) {
-  .table-container {
-    padding: 0.5rem; /* Reduce el padding en pantallas pequeñas */
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column; /* Cambiar a disposición vertical */
+    gap: 12px;             /* Reducir espacio en pantallas pequeñas */
   }
 
-  .ideas-table th, .ideas-table td {
-    font-size: 0.8rem; /* Reduce el tamaño de fuente */
-  }
-}
-
-.mat-elevation-z8 {
-  margin: 0;
-  padding: 0;
-}
-
-@media (max-width: 600px) {
-  .filter-container {
-    flex-direction: column; /* Cambia a columna */
-    align-items: center; /* Centra todos los elementos */
+  .filter-field, .filter-buttons {
+    width: 100%;          /* Ocupan todo el ancho disponible */
+    max-width: none;
   }
 }
