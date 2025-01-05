@@ -46,6 +46,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('currentUser_Creativos');
     localStorage.removeItem('userType');
+    localStorage.removeItem('auth_token');
     this.currentUserSubject.next(null);
     this.router.navigate(['auth/login']);
   }
@@ -56,6 +57,10 @@ export class AuthService {
 
   public get userType(): string | null {
     return this.currentUserValue?.user_type || null;
+  }
+
+  isUserEncargado(): boolean {
+    return !!this.currentUserValue?.area_encargada;
   }
 
   isAuthenticated(): boolean {

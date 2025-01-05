@@ -1,10 +1,22 @@
 /* Contenedor principal */
 .page-container {
     min-height: calc(100vh - 90px);
+
 }
 
+/* Spinner centrado */
+.loading-spinner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tarjeta de perfil */
 .profile-container {
     max-width: 500px;
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
     background: linear-gradient(135deg, #ffffff, #e9f5ff);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IdeaService } from '../../../../services/api/idea.service';
+import { AuthService } from '../../../../services/auth/auth.service'; 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Sede, Area, Idea } from '../../../../models/models';
 import { EditarIdeaDialogComponentComponent } from '../editar-idea-dialog-component/editar-idea-dialog-component.component';
@@ -19,12 +20,14 @@ export class ListIdeasComponent implements OnInit {
   sedes: Sede[] = [];
   areas: Area[] = [];
   ideas: Idea[] = [];
+  isUserEncargado !: boolean;
   tableColumns: string[] = [
-    'fecha_creacion', 'usuario', 'titulo', 'descripcion', 'sede', 'area',
-    'estado', 'puntuacion_general', 'comentario', 'archivos', 'acciones'
+    'fecha_creacion', 'usuario', 'titulo', 'descripcion', 'sede',
+    'estado_revision', 'estado_ejecucion','calificacion_encargado', 'calificacion_gerente',
+    'calificacion_definitiva', 'archivos', 'acciones'
   ];
 
-  constructor(private fb: FormBuilder, private ideaService: IdeaService, private dialog: MatDialog, private fileService: FileService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private ideaService: IdeaService, private dialog: MatDialog, private fileService: FileService) { }
 
   ngOnInit(): void {
     this.ideaForm = this.fb.group({
@@ -32,6 +35,11 @@ export class ListIdeasComponent implements OnInit {
       area: [''],
       usuario: ['']
     });
+
+    this.isUserEncargado = this.authService.isUserEncargado();
+    if (!this.isUserEncargado) {
+      this.tableColumns.splice(5, 0, 'area'); // Inserta 'area' en la posición deseada
+    }
 
     this.getSede();
     this.getArea();
@@ -129,6 +137,11 @@ export class ListIdeasComponent implements OnInit {
         });
       }
     });
+  }
+
+  getPuntuacionGeneral(element: any, tipo: string): string {
+    const calificacion = element.calificaciones.find((c: any) => c.tipo === tipo);
+    return calificacion?.puntuacion_general || 'N/A';
   }
 
   async verArchivos(archivos: any[]): Promise<void> {

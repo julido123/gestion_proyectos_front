@@ -12,9 +12,8 @@ export class EditarIdeaDialogComponentComponent {
   ideaForm: FormGroup;
 
   estados = [
-    { value: 'pendiente', label: 'Pendiente' },
-    { value: 'aprobada', label: 'Aprobada' },
-    { value: 'en_progreso', label: 'En Progreso' },
+    { value: 'pendiente_ejecucion', label: 'Pendiente de Ejecución' },
+    { value: 'en_ejecucion', label: 'En Ejecución' },
     { value: 'completada', label: 'Completada' },
   ];
 
@@ -23,10 +22,10 @@ export class EditarIdeaDialogComponentComponent {
     public dialogRef: MatDialogRef<EditarIdeaDialogComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    const estadoTransformado = this.transformarEstado(data.estado);
+    const estadoTransformado = this.transformarEstado(data.estado_ejecucion);
   
     this.ideaForm = this.fb.group({
-      estado: [estadoTransformado], // Usar el valor transformado
+      estado_ejecucion: [estadoTransformado], // Usar el valor transformado
       puntuacion_general: [data.calificaciones[0]?.puntuacion_general || null],
       factibilidad: [data.calificaciones[0]?.factibilidad || null],
       viabilidad: [data.calificaciones[0]?.viabilidad || null],
@@ -35,15 +34,14 @@ export class EditarIdeaDialogComponentComponent {
     });
   }
   
-  transformarEstado(estado: string): string {
+  transformarEstado(estado_ejecucion: string): string {
     const mapping: { [key: string]: string } = {
-      Pendiente: 'pendiente',
-      Aprobada: 'aprobada',
-      'En Progreso': 'en_progreso',
+      'Pendiente de Ejecución': 'pendiente_ejecucion',
+      'En Ejecución': 'en_ejecucion',
       Completada: 'completada',
     };
   
-    return mapping[estado] || estado; // Devuelve el valor transformado o el original si no está en el mapping
+    return mapping[estado_ejecucion] || estado_ejecucion; // Devuelve el valor transformado o el original si no está en el mapping
   }
 
   guardar(): void {
@@ -52,7 +50,7 @@ export class EditarIdeaDialogComponentComponent {
 
       // Crear un objeto con la estructura que deseas
       const dataToSend = {
-        estado: formData.estado,
+        estado_ejecucion: formData.estado_ejecucion,
         calificacion: {
           factibilidad: formData.factibilidad,
           viabilidad: formData.viabilidad,

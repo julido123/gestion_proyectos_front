@@ -1,17 +1,14 @@
 <h2 mat-dialog-title>Editar Idea: {{ data.titulo }}</h2>
 <mat-dialog-content>
   <form [formGroup]="ideaForm">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="data.estado_ejecucion">
       <mat-label>Estado</mat-label>
-      <mat-select formControlName="estado">
-        <mat-option value="pendiente">Pendiente</mat-option>
-        <mat-option value="aprobada">Aprobada</mat-option>
-        <mat-option value="en_progreso">En Progreso</mat-option>
+      <mat-select formControlName="estado_ejecucion">
+        <mat-option value="pendiente_ejecucion">Pendiente de Ejecución</mat-option>
+        <mat-option value="en_ejecucion">En Ejecución</mat-option>
         <mat-option value="completada">Completada</mat-option>
       </mat-select>
     </mat-form-field>
-
-    
 
     <mat-form-field appearance="fill">
       <mat-label>Factibilidad</mat-label>

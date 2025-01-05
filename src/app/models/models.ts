@@ -16,9 +16,10 @@ export interface Idea {
     tipo: string;
     sede: string;
     area: string;
-    estado: string;
+    estado_revision: string;
+    estado_ejecucion?: string; 
     fecha_creacion: string;
-    archivos?: File[]; 
+    archivos?: File[];
     calificaciones?: Calificacion[];
 }
 

@@ -33,7 +33,7 @@
         <mat-label>Sede</mat-label>
         <mat-icon matPrefix>location_on</mat-icon>
         <mat-select formControlName="sede">
-          <mat-option *ngFor="let sede of sedes" [value]="sede.nombre">
+          <mat-option *ngFor="let sede of sedes" [value]="sede.id">
             {{ sede.nombre }}
           </mat-option>
         </mat-select>
@@ -44,7 +44,7 @@
         <mat-label>Área</mat-label>
         <mat-icon matPrefix>apartment</mat-icon>
         <mat-select formControlName="area">
-          <mat-option *ngFor="let area of areas" [value]="area.nombre">
+          <mat-option *ngFor="let area of areas" [value]="area.id">
             {{ area.nombre }}
           </mat-option>
         </mat-select>

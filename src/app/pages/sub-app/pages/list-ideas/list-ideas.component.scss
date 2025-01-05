@@ -6,7 +6,7 @@
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 45px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
@@ -119,3 +119,12 @@ button {
     max-width: none;
   }
 }
+
+.fila-aprobada {
+  background-color: rgba(144, 238, 144, 0.1); /* Verde claro */
+}
+
+.fila-denegada {
+  background-color: rgba(255, 182, 193, 0.1); /* Rojo claro */
+}
+

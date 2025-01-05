@@ -19,7 +19,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="filter-field">
+      <mat-form-field appearance="fill" class="filter-field" *ngIf="!isUserEncargado">
         <mat-label>Área</mat-label>
         <mat-select formControlName="area">
           <mat-option *ngFor="let area of areas" [value]="area.nombre">
@@ -72,23 +72,41 @@
       </ng-container>
 
       <!-- Columna Área -->
-      <ng-container matColumnDef="area">
+      <ng-container matColumnDef="area" *ngIf="!isUserEncargado">
         <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Área </th>
         <td mat-cell *matCellDef="let element" class="mat-cell"> {{ element.area }} </td>
       </ng-container>
 
       <!-- Columna Estado -->
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Estado </th>
-        <td mat-cell *matCellDef="let element" class="mat-cell"> {{ element.estado }} </td>
+      <ng-container matColumnDef="estado_revision">
+        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Estado Revision </th>
+        <td mat-cell *matCellDef="let element" class="mat-cell"> {{ element.estado_revision }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="puntuacion_general">
-        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Puntuación General </th>
+      <!-- Columna Estado -->
+      <ng-container matColumnDef="estado_ejecucion">
+        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Estado Ejecución </th>
+        <td mat-cell *matCellDef="let element" class="mat-cell"> {{ element.estado_ejecucion || '-'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="calificacion_encargado">
+        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Calificación Encargado </th>
         <td mat-cell *matCellDef="let element" class="mat-cell">
-          <div [ngClass]="{'highlight-circle': element.calificaciones?.[0]?.puntuacion_general >= 8}">
-            {{ element.calificaciones?.[0]?.puntuacion_general || 'N/A' }}
-          </div>
+          {{ getPuntuacionGeneral(element, 'encargado') }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="calificacion_gerente">
+        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Calificación Gerente </th>
+        <td mat-cell *matCellDef="let element" class="mat-cell">
+          {{ getPuntuacionGeneral(element, 'gerente') }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="calificacion_definitiva">
+        <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Calificación Definitiva </th>
+        <td mat-cell *matCellDef="let element" class="mat-cell">
+          {{ getPuntuacionGeneral(element, 'definitiva') }}
         </td>
       </ng-container>
 
@@ -98,7 +116,6 @@
           {{ element.calificaciones?.[0]?.comentario || 'N/A' }}
         </td>
       </ng-container>
-
 
       <ng-container matColumnDef="archivos">
         <th mat-header-cell *matHeaderCellDef class="mat-header-cell"> Archivos </th>
@@ -126,7 +143,11 @@
 
       <!-- Encabezados y filas -->
       <tr mat-header-row *matHeaderRowDef="tableColumns" class="mat-header-row"></tr>
-      <tr mat-row *matRowDef="let row; columns: tableColumns;" class="mat-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;" class="mat-row" [ngClass]="{
+    'fila-aprobada': row.estado_revision === 'Aprobada',
+    'fila-denegada': row.estado_revision === 'Denegada'
+  }">
+      </tr>
     </table>
   </div>
 </div>
